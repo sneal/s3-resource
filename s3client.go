@@ -118,6 +118,13 @@ func NewAwsConfig(
 		HTTPClient:       httpClient,
 	}
 
+	//if debug {
+	awsConfig.LogLevel = aws.LogLevel(aws.LogDebugWithHTTPBody)
+	awsConfig.Logger = aws.LoggerFunc(func(args ...interface{}) {
+		fmt.Fprintln(os.Stderr, args...)
+	})
+	//}
+
 	if len(endpoint) != 0 {
 		endpoint := fmt.Sprintf("%s", endpoint)
 		awsConfig.Endpoint = &endpoint

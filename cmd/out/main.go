@@ -2,9 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 
-	"github.com/concourse/s3-resource"
+	s3resource "github.com/concourse/s3-resource"
 	"github.com/concourse/s3-resource/out"
 )
 
@@ -35,6 +36,7 @@ func main() {
 		request.Source.UseV2Signing,
 	)
 
+	fmt.Println("starting command")
 	command := out.NewCommand(os.Stderr, client)
 	response, err := command.Run(sourceDir, request)
 	if err != nil {
